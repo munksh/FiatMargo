@@ -1,0 +1,38 @@
+# Qt Creator
+*.pro.user
+*.pro.user.*
+.qmake.stash
+
+# Shadow builds -- Qt Creator names them build-<project>-<kit>-<mode>
+build/
+build-*/
+
+# qmake / make output
+Makefile
+Makefile.*
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.o
+*.obj
+*.so
+*.a
+
+# Packaging
+RPMS/
+*.rpm
+*.tar.bz2
+*.tar.gz
+
+# Tools
+__pycache__/
+*.pyc
+margo_comparison.png
+
+# Editors and desktops
+.DS_Store
+*~
+*.swp
+.idea/
+.vscode/

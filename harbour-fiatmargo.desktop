@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Icon=harbour-fiatmargo
+Name=fiat margo
+Comment=Prepare a photo for an ambience
+Exec=/usr/bin/sailjail -p harbour-fiatmargo.desktop /usr/bin/harbour-fiatmargo
+
+[X-Sailjail]
+Permissions=Pictures;MediaIndexing
+OrganizationName=se.munkstolen
+ApplicationName=harbour-fiatmargo
