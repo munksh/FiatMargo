@@ -1,38 +1,60 @@
-# Qt Creator
+# Local editor configuration
 *.pro.user
 *.pro.user.*
-.qmake.stash
+*.autosave
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
 
-# Shadow builds -- Qt Creator names them build-<project>-<kit>-<mode>
-build/
-build-*/
-
-# qmake / make output
+# QMake and compiler output
 Makefile
 Makefile.*
-moc_*.cpp
-moc_*.h
-qrc_*.cpp
-ui_*.h
+.qmake.stash
 *.o
 *.obj
 *.so
 *.a
+moc_*.cpp
+moc_*.h
+moc_predefs.h
+qrc_*.cpp
+ui_*.h
 
-# Packaging
+# Built application
+/harbour-fiatmargo
+
+# Sailfish SDK and packaging output
+.sfdk/
 RPMS/
+SRPMS/
 *.rpm
 *.tar.bz2
 *.tar.gz
+documentation.list
+debugfiles.list
+debuglinks.list
+debugsourcefiles.list
+debugsources.list
+elfbins.list
 
-# Tools
+# Build directories
+build/
+build-*/
+target/
+rust/target/
+
+# Temporary copies
+.backups/
+*.before-*
+*.failed-*
+*.orig
+*.zip
+
+# Python
 __pycache__/
 *.pyc
-margo_comparison.png
 
-# Editors and desktops
-.DS_Store
-*~
-*.swp
-.idea/
-.vscode/
+# Generated comparison image
+margo_comparison.png
