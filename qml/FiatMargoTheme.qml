@@ -41,7 +41,7 @@ QtObject {
     // vox (4.97) and mos (5.24). Teal rather than blue or green so it is
     // mistaken for neither sibling, and nowhere near the red that means a
     // photo is too small.
-    readonly property color accent: ambient ? Theme.highlightColor : "#1F6E7B"
+    readonly property color accent: ambient ? Theme.highlightColor : "#716A00"
 
     readonly property color backgroundHigh: "#F2EFE8"
     readonly property color backgroundLow:  "#D8D2C6"
@@ -139,4 +139,8 @@ QtObject {
         try { p.highlightDimmerColor = ambient ? Theme.highlightDimmerColor : backgroundLow } catch (e) { }
         try { p.overlayBackgroundColor = ambient ? Theme.overlayBackgroundColor : backgroundHigh } catch (e) { }
     }
+    // Cover layout
+    readonly property real coverWordmarkTop: Theme.paddingLarge
+    readonly property real coverSideMargin: Theme.paddingLarge
+    readonly property real coverFigureFraction: 0.28
 }

@@ -2,15 +2,6 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import ".."
 
-/*
- * A cover is a tile seen at arm's length, not a page. Everything is centred,
- * the wordmark goes at the FOOT as a signature rather than in the corner, and
- * the figure is what the cover is for.
- *
- * `composer` is a context property set in main(), which is the only clean way
- * for the cover and the page to share one instance -- the cover is loaded by
- * URL and cannot see ids declared in the app's root QML.
- */
 CoverBackground {
     id: cover
 
@@ -23,16 +14,29 @@ CoverBackground {
         }
     }
 
+    Label {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: FiatMargoTheme.coverWordmarkTop
+        text: "fiat margo"
+        color: FiatMargoTheme.secondaryText
+        font.pixelSize: Theme.fontSizeTiny
+        font.family: FiatMargoTheme.serif
+        font.italic: true
+    }
+
     Column {
-        anchors.centerIn: parent
-        width: parent.width - Theme.paddingLarge * 2
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.leftMargin: FiatMargoTheme.coverSideMargin
+        anchors.rightMargin: FiatMargoTheme.coverSideMargin
+        anchors.topMargin: cover.height * FiatMargoTheme.coverFigureFractionShape
         spacing: Theme.paddingMedium
 
-        // The thing itself: the square as Gallery will see it, with the strip
-        // that survives marked out.
         Item {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: Math.min(parent.width, cover.height * 0.42)
+            width: cover.width * FiatMargoTheme.coverArtFraction
             height: width
             visible: composer.hasSource
 
@@ -63,12 +67,10 @@ CoverBackground {
             }
         }
 
-        // Drawn, not typed. A Rectangle with radius width/2 is round on every
-        // font; a bullet glyph is not.
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: !composer.hasSource
-            width: cover.height * 0.16
+            width: cover.width * FiatMargoTheme.coverArtFraction * 0.4
             height: width
             radius: width / 2
             color: "transparent"
@@ -83,18 +85,5 @@ CoverBackground {
             color: FiatMargoTheme.secondaryText
             font.pixelSize: Theme.fontSizeExtraSmall
         }
-    }
-
-    // The signature.
-    Label {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: Theme.paddingMedium
-        horizontalAlignment: Text.AlignHCenter
-        text: "fiat margo"
-        color: FiatMargoTheme.secondaryText
-        font.pixelSize: Theme.fontSizeTiny
-        font.family: FiatMargoTheme.serif
-        font.italic: true
     }
 }
