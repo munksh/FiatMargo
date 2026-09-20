@@ -1,6 +1,6 @@
 Name:       harbour-fiatmargo
 Summary:    Prepare a photo for a Sailfish ambience
-Version:    1.0.0
+Version:    1.1
 Release:    1
 Group:      Applications/Multimedia
 License:    MIT

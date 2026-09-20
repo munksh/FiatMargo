@@ -3,21 +3,6 @@ import Sailfish.Silica 1.0
 import ".."
 import "../components"
 
-// What it is, how it works, what it will not do, who made it, and where it came
-// from. In that order, and nothing else. No changelog -- that belongs in the
-// store listing and the repository, where it can be corrected. No donation
-// button. Two links.
-//
-// The lead is one concrete failure rather than a summary. "Prepares a photo for
-// use as an ambience" is accurate and says nothing; a photograph of your son
-// reduced to the side of his nose says the same thing and can be pictured.
-//
-// The privacy section is the only place in the app that makes a claim about
-// itself, so it is written flat. It also explains WHY the media index
-// permission is needed -- that is the one permission a careful reader would
-// otherwise be right to be suspicious of, and the real reason is more
-// reassuring than silence.
-
 Page {
     id: page
 
@@ -152,9 +137,9 @@ Page {
             // -- The two fills -------------------------------------------------
             //
             // The radii are stated as a fraction of the image width, because
-            // that is what they actually are: kSafety-style divisors of the
-            // background's own size, not a pixel count. A pixel count would be
-            // wrong at every output size but one.
+            // that is what they actually are: divisors of the background's
+            // own size, not a pixel count that would be wrong at every
+            // output size but one.
 
             SectionLabel {
                 x: Theme.horizontalPageMargin
@@ -266,60 +251,64 @@ Page {
                 text: qsTr("<b>margo</b> — Latin, <i>margin, edge, border</i>. The blank a page keeps around its own text, so that the words are never cut by the paper.")
             }
 
-            // -- The motto -----------------------------------------------------
-            //
-            // Genuine Ovid, and its original subject is concealing your tricks
-            // in courtship rather than anything to do with pictures. It earns
-            // its place anyway: the fill works exactly as long as nobody
-            // notices it, and stops working the moment they do.
+            // Genuine Ovid, and its original subject is concealing your
+            // tricks in courtship rather than anything to do with pictures.
+            // It earns its place anyway: the fill works exactly as long as
+            // nobody notices it, and stops working the moment they do.
+
+            Item { width: 1; height: Theme.paddingLarge }
+
+            Rectangle {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Theme.itemSizeSmall
+                height: 1
+                color: FiatMargoTheme.innerBorder
+            }
+
+            Item { width: 1; height: Theme.paddingMedium }
+
+            Column {
+                x: Theme.horizontalPageMargin
+                width: content.width - Theme.horizontalPageMargin * 2
+                spacing: Theme.paddingSmall
+
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: Theme.fontSizeSmall
+                    font.family: FiatMargoTheme.serif
+                    font.italic: true
+                    color: FiatMargoTheme.primaryText
+                    text: "Si latet, ars prodest"
+                }
+
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: FiatMargoTheme.secondaryText
+                    text: qsTr("If it lies hidden, the art works.")
+                }
+
+                Label {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: FiatMargoTheme.secondaryText
+                    text: "Ovid, Ars Amatoria II"
+                }
+            }
 
             Item { width: 1; height: Theme.paddingMedium }
 
             Rectangle {
-                x: Theme.horizontalPageMargin
-                width: content.width - Theme.horizontalPageMargin * 2
-                height: mottoColumn.height + Theme.paddingLarge * 2
-                radius: FiatMargoTheme.cardRadius
-                color: FiatMargoTheme.card
-                border.color: FiatMargoTheme.cardBorder
-                border.width: FiatMargoTheme.cardBorderWidth
-
-                Column {
-                    id: mottoColumn
-                    anchors.centerIn: parent
-                    width: parent.width - Theme.paddingLarge * 2
-                    spacing: Theme.paddingSmall
-
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: Theme.fontSizeSmall
-                        font.family: FiatMargoTheme.serif
-                        font.italic: true
-                        color: FiatMargoTheme.primaryText
-                        text: "Si latet, ars prodest"
-                    }
-
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        color: FiatMargoTheme.secondaryText
-                        text: qsTr("If it lies hidden, the art works.")
-                    }
-
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: Theme.fontSizeTiny
-                        color: FiatMargoTheme.secondaryText
-                        opacity: 0.75
-                        text: "Ovid, Ars Amatoria II"
-                    }
-                }
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Theme.itemSizeSmall
+                height: 1
+                color: FiatMargoTheme.innerBorder
             }
 
             // -- Privacy --------------------------------------------------------
@@ -438,9 +427,6 @@ Page {
             }
 
             // -- The family --------------------------------------------------------
-            //
-            // Every name translates itself, and the translation explains the
-            // app. That is worth more than a tagline.
 
             SectionLabel {
                 x: Theme.horizontalPageMargin
@@ -449,31 +435,68 @@ Page {
 
             Repeater {
                 model: [
-                    { name: "fiat lux",    what: qsTr("let there be light — a light meter for film"),        me: false },
-                    { name: "fiat vox",    what: qsTr("let there be voice — a chromatic tuner"),             me: false },
-                    { name: "fiat mos",    what: qsTr("let there be habit — a habit tracker"),               me: false },
-                    { name: "fiat agenda", what: qsTr("let there be things to be done — a task list"),       me: false },
-                    { name: "fiat margo",  what: qsTr("let there be a margin — this one"),                   me: true }
+                    { name: "fiat agenda", what: qsTr("let there be doing — a task list"), icon: "images/family/harbour-fiatagenda.png", url: "https://openrepos.net/content/munkstolen/fiat-agenda-task-list" },
+                    { name: "fiat margo", what: qsTr("let there be edge — this one"), icon: "images/family/harbour-fiatmargo.png", url: "" },
+                    { name: "fiat glossa", what: qsTr("let there be tongue — a translator"), icon: "images/family/harbour-fiatglossa.png", url: "https://openrepos.net/content/munkstolen/fiat-glossa-a-deepl-translator" },
+                    { name: "fiat vox", what: qsTr("let there be voice — a chromatic tuner"), icon: "images/family/harbour-fiatvox.png", url: "https://openrepos.net/content/munkstolen/fiat-vox-chromatic-tuner" },
+                    { name: "fiat pons", what: qsTr("let there be bridge — a native Qobuz client"), icon: "images/family/harbour-fiatpons.png", url: "https://openrepos.net/content/munkstolen/fiat-pons-native-qobuz-client" },
+                    { name: "fiat lux", what: qsTr("let there be light — a light meter for film - Coming soon"), icon: "images/family/harbour-fiatlux.png", url: "" },
+                    { name: "fiat cor", what: qsTr("let there be heart — a metronome"), icon: "images/family/harbour-fiatcor.png", url: "https://openrepos.net/content/munkstolen/fiat-cor-a-metronome" },
+                    { name: "fiat passus", what: qsTr("let there be step — a step counter - Coming soon"), icon: "images/family/harbour-fiatpassus.png", url: "" },
+                    { name: "fiat mos", what: qsTr("let there be habit — a habit tracker"), icon: "images/family/harbour-fiatmos.png", url: "https://openrepos.net/content/munkstolen/fiat-mos-habit-tracker" }
                 ]
 
-                Column {
+                delegate: BackgroundItem {
+                    id: familyRow
                     x: Theme.horizontalPageMargin
                     width: content.width - Theme.horizontalPageMargin * 2
+                    height: familyText.height
+                    enabled: modelData.url !== ""
+                    highlightedColor: FiatMargoTheme.highlightWash
+                    onClicked: Qt.openUrlExternally(modelData.url)
 
-                    Label {
-                        width: parent.width
-                        font.pixelSize: Theme.fontSizeSmall
-                        font.family: FiatMargoTheme.serif
-                        color: modelData.me ? FiatMargoTheme.accent : FiatMargoTheme.primaryText
-                        text: modelData.name
+                    // A cap, not a measurement of familyText: sizing the icon
+                    // from the text's height while the text's width comes
+                    // from the icon's width would make each depend on the
+                    // other, and QML gives no guarantee a loop like that
+                    // settles. Every "what" line here is one short sentence,
+                    // so in practice this cap and the real name+what height
+                    // match; if one ever wraps past it the icon just stops
+                    // growing with it instead of the layout misbehaving.
+                    readonly property real iconSlot: Theme.itemSizeSmall
+
+                    Image {
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: Math.min(familyText.height, familyRow.iconSlot)
+                        height: width
+                        source: Qt.resolvedUrl(modelData.icon)
+                        fillMode: Image.PreserveAspectFit
+                        smooth: true
+                        opacity: modelData.url !== "" ? 1.0 : 0.55
                     }
 
-                    Label {
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: Theme.fontSizeExtraSmall
-                        color: FiatMargoTheme.secondaryText
-                        text: modelData.what
+                    Column {
+                        id: familyText
+                        anchors.left: parent.left
+                        anchors.leftMargin: familyRow.iconSlot + Theme.paddingMedium
+                        anchors.right: parent.right
+
+                        Label {
+                            width: parent.width
+                            font.pixelSize: Theme.fontSizeSmall
+                            font.family: FiatMargoTheme.serif
+                            color: modelData.url !== "" ? FiatMargoTheme.accent : FiatMargoTheme.primaryText
+                            text: modelData.name
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            color: FiatMargoTheme.secondaryText
+                            text: modelData.what
+                        }
                     }
                 }
             }
@@ -509,10 +532,6 @@ Page {
             }
 
             // -- Colophon ------------------------------------------------------
-            //
-            // A printer's mark at the end of a book: a short rule, the mark,
-            // the wordmark. Nothing here is tappable -- the links are up under
-            // "made by". This is the signature, not a button.
 
             Item { width: 1; height: Theme.itemSizeExtraSmall }
 
