@@ -43,6 +43,23 @@ QtObject {
     // photo is too small.
     readonly property color accent: ambient ? Theme.highlightColor : "#716A00"
 
+    function mixColor(a, b, t) {
+        return Qt.rgba(
+            a.r * (1.0 - t) + b.r * t,
+            a.g * (1.0 - t) + b.g * t,
+            a.b * (1.0 - t) + b.b * t,
+            1.0
+        )
+    }
+
+    // A muted variant of the accent, for the Silica chrome that draws with
+    // palette.highlightColor directly -- the pull-down menu's revealed label
+    // chief among them. Found on Fiat Mos: a saturated accent used raw there
+    // reads far louder as a large glowing fill than it does as a button or a
+    // mark. This mutes only that role; everything the app draws itself still
+    // uses the full accent above.
+    readonly property color chromeAccent: mixColor(accent, primaryText, 0.35)
+
     readonly property color backgroundHigh: "#F2EFE8"
     readonly property color backgroundLow:  "#D8D2C6"
 
@@ -128,19 +145,26 @@ QtObject {
         try { p.colorScheme = ambient ? Theme.colorScheme : Theme.DarkOnLight } catch (e) { }
         try { p.primaryColor = primaryText } catch (e) { }
         try { p.secondaryColor = secondaryText } catch (e) { }
-        try { p.highlightColor = accent } catch (e) { }
-        try { p.secondaryHighlightColor = Theme.rgba(accent, 0.6) } catch (e) { }
-        // NOT the accent. This role is what the virtual keyboard paints its
-        // keys with. 30% of an accent over light paper turns the whole
-        // keyboard that colour -- a neutral wash serves both modes and shouts
-        // in neither.
+        try { p.highlightColor = chromeAccent } catch (e) { }
+        try { p.secondaryHighlightColor = Theme.rgba(chromeAccent, 0.6) } catch (e) { }
+        // A neutral wash for in-app selection/highlight surfaces. NOT the
+        // virtual keyboard -- that turned out to be a separate surface
+        // (Maliit/FutoKeyboard) that reads Theme.*, the system ambience,
+        // directly. It cannot be reached from an app's palette at all, so
+        // this project does not try; it follows the ambience.
         try { p.highlightBackgroundColor = Theme.rgba(primaryText, 0.12) } catch (e) { }
         try { p.errorColor = wrong } catch (e) { }
         try { p.highlightDimmerColor = ambient ? Theme.highlightDimmerColor : backgroundLow } catch (e) { }
         try { p.overlayBackgroundColor = ambient ? Theme.overlayBackgroundColor : backgroundHigh } catch (e) { }
     }
+
     // Cover layout
     readonly property real coverWordmarkTop: Theme.paddingLarge
     readonly property real coverSideMargin: Theme.paddingLarge
     readonly property real coverFigureFraction: 0.28
+    // The two the cover was already reading and this file never defined.
+    // Margo's figure is a photo/circle, not a line of text, so it uses the
+    // shape fraction rather than coverFigureFraction above.
+    readonly property real coverFigureFractionShape: 0.20
+    readonly property real coverArtFraction: 0.5
 }

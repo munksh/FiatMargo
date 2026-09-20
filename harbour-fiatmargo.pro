@@ -45,6 +45,15 @@ DISTFILES += \
     qml/components/EmptyNote.qml \
     qml/components/FiatPill.qml \
     qml/components/MunkstolenMark.qml \
+    qml/images/family/harbour-fiatagenda.png \
+    qml/images/family/harbour-fiatmargo.png \
+    qml/images/family/harbour-fiatglossa.png \
+    qml/images/family/harbour-fiatvox.png \
+    qml/images/family/harbour-fiatpons.png \
+    qml/images/family/harbour-fiatlux.png \
+    qml/images/family/harbour-fiatcor.png \
+    qml/images/family/harbour-fiatpassus.png \
+    qml/images/family/harbour-fiatmos.png \
     qml/pages/MainPage.qml \
     qml/pages/AboutPage.qml \
     qml/pages/PickerPage.qml \

@@ -8,9 +8,6 @@ Page {
 
     allowedOrientations: Orientation.Portrait
 
-    // Mirrors AmbienceComposer::FillMode. The composer reaches QML as a
-    // context property, and a context property carries no type namespace, so
-    // the enum cannot come across with it.
     readonly property int fillEdgeColour: 0
     readonly property int fillEdgeSmear: 1
 
@@ -20,9 +17,6 @@ Page {
     // A photo was chosen but could not be decoded.
     readonly property bool loadFailed: composer.sourcePath !== "" && !composer.hasSource
 
-    // A page inherits the palette it was BUILT with. Without this, a page
-    // pushed after the fiat colours switch was thrown keeps the ambience
-    // keyboard and the wrong menu colours until the app is restarted.
     function paint() { FiatMargoTheme.applyPalette(page) }
     Component.onCompleted: paint()
     Connections {
@@ -30,9 +24,7 @@ Page {
         onAmbientChanged: page.paint()
     }
 
-    // Under an ambience there is NO background rectangle at all -- the
-    // wallpaper is the background. Painting one unconditionally cancels the
-    // ambience, which is a strange thing for this app of all apps to do.
+
     Rectangle {
         anchors.fill: parent
         visible: !FiatMargoTheme.ambient
@@ -51,19 +43,15 @@ Page {
             // Never set backgroundColor here: it paints the whole panel and
             // dims the entire screen behind the menu.
             highlightColor: FiatMargoTheme.accent
-
-            MenuItem {
-                // "fiat" is always lowercase, in a menu as much as in the
-                // wordmark. "Follow ambience" keeps its capital because it
-                // does not carry the family name.
-                text: FiatMargoTheme.ambient ? "fiat colours" : "Follow ambience"
-                color: FiatMargoTheme.primaryText
-                onClicked: FiatMargoTheme.setAmbient(!FiatMargoTheme.ambient)
-            }
             MenuItem {
                 text: "About"
                 color: FiatMargoTheme.primaryText
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+            }
+            MenuItem {
+                text: FiatMargoTheme.ambient ? "fiat colours" : "Follow ambience"
+                color: FiatMargoTheme.primaryText
+                onClicked: FiatMargoTheme.setAmbient(!FiatMargoTheme.ambient)
             }
             MenuItem {
                 text: "Start over"
@@ -83,8 +71,6 @@ Page {
             width: parent.width
             spacing: Theme.paddingLarge
 
-            // No title. The wordmark already names the app, and a big
-            // "Ambience" above it said nothing the page did not already show.
             PageHead {
                 subtitle: composer.hasSource
                           ? "Drag to move the photo, pinch to zoom. The dimmed edges are what Sailfish throws away."
@@ -114,9 +100,6 @@ Page {
 
                 Item { width: 1; height: Theme.paddingLarge * 2 }
 
-                // The same opening as the About page, on purpose. Nobody reads
-                // About on first run, and one concrete failure explains the
-                // app faster than a description of it does.
                 EmptyNote {
                     width: parent.width
                     title: page.loadFailed ? "Could not read that photo" : "no photo yet"
@@ -406,11 +389,6 @@ Page {
                 }
 
                 // ---- the photo ----
-                //
-                // No safe-margin choice and no size choice any more. Both
-                // asked the user a question they had no way to answer, and
-                // both now have one fixed value in ambiencecomposer.cpp
-                // (kSafety and kOutputSize). This block only reports.
                 Column {
                     x: Theme.horizontalPageMargin
                     width: parent.width - Theme.horizontalPageMargin * 2
