@@ -44,6 +44,7 @@ DISTFILES += \
     qml/components/SectionLabel.qml \
     qml/components/EmptyNote.qml \
     qml/components/FiatPill.qml \
+    qml/components/ActionWord.qml \
     qml/components/MunkstolenMark.qml \
     qml/images/family/harbour-fiatagenda.png \
     qml/images/family/harbour-fiatmargo.png \

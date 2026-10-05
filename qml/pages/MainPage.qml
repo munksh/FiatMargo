@@ -252,7 +252,7 @@ Page {
             Flow {
                 x: Theme.horizontalPageMargin
                 width: parent.width - Theme.horizontalPageMargin * 2
-                spacing: Theme.paddingMedium
+                spacing: Theme.paddingSmall
                 visible: composer.hasSource
 
                 FiatPill {
@@ -266,12 +266,11 @@ Page {
                     onClicked: page.stripMode = true
                 }
 
-                // Not a mode, so it never reads as selected -- it is an
-                // action that puts the photo back in the middle after a drag.
-                FiatPill {
-                    label: "Centre"
-                    selected: false
-                    opacity: composer.centred ? 0.4 : 1.0
+                // Not a mode, so it is not a choice: it is an action that puts
+                // the photo back in the middle after a drag.
+                ActionWord {
+                    text: "Centre"
+                    enabled: !composer.centred
                     onClicked: composer.centre()
                 }
             }
@@ -292,7 +291,7 @@ Page {
 
                     Flow {
                         width: parent.width
-                        spacing: Theme.paddingMedium
+                        spacing: Theme.paddingSmall
 
                         FiatPill {
                             label: "Edge colour"
