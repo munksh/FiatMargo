@@ -59,11 +59,11 @@ Categories:
  - Utility
 Custom:
   Repo: https://github.com/munksh/FiatMargo
-PackageIcon: https://munkstolen.se/SFOS/fiat-margo/harbour-fiatmargo.png
+PackageIcon: https://munkstolen.se/SFOS/harbour-fiatmargo.png
 Screenshots:
- - https://munkstolen.se/SFOS/fiat-margo/fiat-margo1.png
- - https://munkstolen.se/SFOS/fiat-margo/fiat-margo2.png
- - https://munkstolen.se/SFOS/fiat-margo/fiat-margo3.png
+ - https://munkstolen.se/SFOS/fiatmargo1.png
+ - https://munkstolen.se/SFOS/fiatmargo2.png
+ - https://munkstolen.se/SFOS/fiatmargo3.png
 Links:
   Homepage: https://munkstolen.se
   Help: https://github.com/munksh/FiatMargo/discussions

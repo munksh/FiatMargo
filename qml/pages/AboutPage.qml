@@ -426,7 +426,7 @@ Page {
                 }
             }
 
-            // -- The family --------------------------------------------------------
+            // -- The family ---------------------------------------------------
 
             SectionLabel {
                 x: Theme.horizontalPageMargin
@@ -440,47 +440,43 @@ Page {
                     { name: "fiat glossa", what: qsTr("let there be tongue — a translator"), icon: "images/family/harbour-fiatglossa.png", url: "https://openrepos.net/content/munkstolen/fiat-glossa-a-deepl-translator" },
                     { name: "fiat vox", what: qsTr("let there be voice — a chromatic tuner"), icon: "images/family/harbour-fiatvox.png", url: "https://openrepos.net/content/munkstolen/fiat-vox-chromatic-tuner" },
                     { name: "fiat pons", what: qsTr("let there be bridge — a native Qobuz client"), icon: "images/family/harbour-fiatpons.png", url: "https://openrepos.net/content/munkstolen/fiat-pons-native-qobuz-client" },
-                    { name: "fiat lux", what: qsTr("let there be light — a light meter for film - Coming soon"), icon: "images/family/harbour-fiatlux.png", url: "" },
+                    { name: "fiat lux", what: qsTr("let there be light — a light meter for film"), icon: "images/family/harbour-fiatlux.png", url: "https://openrepos.net/content/munkstolen/fiat-lux-lightmeter-film-photography" },
                     { name: "fiat cor", what: qsTr("let there be heart — a metronome"), icon: "images/family/harbour-fiatcor.png", url: "https://openrepos.net/content/munkstolen/fiat-cor-a-metronome" },
                     { name: "fiat passus", what: qsTr("let there be step — a step counter - Coming soon"), icon: "images/family/harbour-fiatpassus.png", url: "" },
-                    { name: "fiat mos", what: qsTr("let there be habit — a habit tracker"), icon: "images/family/harbour-fiatmos.png", url: "https://openrepos.net/content/munkstolen/fiat-mos-habit-tracker" }
+                    { name: "fiat mos", what: qsTr("let there be habit — a habit tracker"), icon: "images/family/harbour-fiatmos.png", url: "https://openrepos.net/content/munkstolen/fiat-mos-habit-tracker" },
+                    { name: "fiat imago", what: qsTr("let there be image — a raw editor"), icon: "images/family/harbour-fiatimago.png", url: "https://openrepos.net/content/munkstolen/fiat-imago-raw-editor" },
+                    { name: "fiat ratio", what: qsTr("let there be reckoning — a budget tool"), icon: "images/family/harbour-fiatratio.png", url: "https://openrepos.net/content/munkstolen/fiat-ratio-budget-tool" }
                 ]
 
+                // A full-size icon in a row of its own height, rather than an
+                // icon shrunk to the height of two lines of text. The icon is
+                // the app's face; it should be readable.
                 delegate: BackgroundItem {
-                    id: familyRow
-                    x: Theme.horizontalPageMargin
-                    width: content.width - Theme.horizontalPageMargin * 2
-                    height: familyText.height
+                    width: content.width
+                    height: Theme.itemSizeMedium
                     enabled: modelData.url !== ""
                     highlightedColor: FiatMargoTheme.highlightWash
                     onClicked: Qt.openUrlExternally(modelData.url)
 
-                    // A cap, not a measurement of familyText: sizing the icon
-                    // from the text's height while the text's width comes
-                    // from the icon's width would make each depend on the
-                    // other, and QML gives no guarantee a loop like that
-                    // settles. Every "what" line here is one short sentence,
-                    // so in practice this cap and the real name+what height
-                    // match; if one ever wraps past it the icon just stops
-                    // growing with it instead of the layout misbehaving.
-                    readonly property real iconSlot: Theme.itemSizeSmall
-
                     Image {
-                        anchors.left: parent.left
+                        id: familyIcon
+                        x: Theme.horizontalPageMargin
                         anchors.verticalCenter: parent.verticalCenter
-                        width: Math.min(familyText.height, familyRow.iconSlot)
-                        height: width
-                        source: Qt.resolvedUrl(modelData.icon)
+                        width: Theme.itemSizeSmall
+                        height: Theme.itemSizeSmall
+                        sourceSize.width: Theme.itemSizeSmall
+                        sourceSize.height: Theme.itemSizeSmall
                         fillMode: Image.PreserveAspectFit
                         smooth: true
-                        opacity: modelData.url !== "" ? 1.0 : 0.55
+                        source: Qt.resolvedUrl(modelData.icon)
                     }
 
                     Column {
-                        id: familyText
-                        anchors.left: parent.left
-                        anchors.leftMargin: familyRow.iconSlot + Theme.paddingMedium
+                        anchors.left: familyIcon.right
+                        anchors.leftMargin: Theme.paddingLarge
                         anchors.right: parent.right
+                        anchors.rightMargin: Theme.horizontalPageMargin
+                        anchors.verticalCenter: parent.verticalCenter
 
                         Label {
                             width: parent.width
@@ -503,16 +499,7 @@ Page {
 
             Item { width: 1; height: Theme.paddingMedium }
 
-            Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width - Theme.horizontalPageMargin * 2
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeTiny
-                color: FiatMargoTheme.secondaryText
-                text: qsTr("Instruments for things you would otherwise guess at. They share a look, a palette, and a stubbornness about staying on your own phone.")
-            }
-
-            // -- Version -----------------------------------------------------------
+            // -- Version ---------------------------------------------------
             //
             // Last, because it is support and not identity. The number comes
             // from the rpm spec by way of qmake, so it is the one the package
@@ -531,7 +518,7 @@ Page {
                 text: typeof appVersion !== "undefined" ? appVersion : qsTr("unknown")
             }
 
-            // -- Colophon ------------------------------------------------------
+            // -- Colophon --------------------------------------------------
 
             Item { width: 1; height: Theme.itemSizeExtraSmall }
 
