@@ -57,6 +57,8 @@ DeveloperName: Caesar Prometheus Ivarsson
 Categories:
  - Graphics
  - Utility
+AIRating: V
+AINote: Claude is my typist - I cross review with Mistral, and add the code once it looks good. Architecture, design, on-device testing, releases and maintenance by me; issues and input welcome.
 Custom:
   Repo: https://github.com/munksh/FiatMargo
 PackageIcon: https://munkstolen.se/SFOS/harbour-fiatmargo.png
