@@ -52,6 +52,7 @@ CoverBackground {
             }
 
             Rectangle {
+                visible: !composer.solid
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 x: parent.width * (1 - composer.effectiveAspect) / 2
@@ -59,6 +60,7 @@ CoverBackground {
                 color: FiatMargoTheme.accent
             }
             Rectangle {
+                visible: !composer.solid
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 x: parent.width - parent.width * (1 - composer.effectiveAspect) / 2 - 1

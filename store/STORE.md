@@ -1,4 +1,4 @@
-# Store listing copy — fiat margo 1.0.0
+# Store listing copy — fiat margo 1.3
 
 Paste-ready text for the Harbour submission form. Character counts are checked
 by `tools/check_store_copy.py`; run it after any edit.
@@ -9,7 +9,7 @@ by `tools/check_store_copy.py`; run it after any edit.
 *(Harbour limit: 200 characters)*
 
 ```
-Sailfish crops a photo twice on its way to becoming an ambience. fiat margo pads it out first, so the crop lands on fill instead of on your picture.
+Sailfish crops a photo twice on its way to becoming an ambience. fiat margo pads it out first, so the crop lands on fill instead of on your picture. Or pick one solid colour.
 ```
 
 ---
@@ -33,6 +33,10 @@ WHAT MARGO DOES
 The opposite. It places your whole, uncropped photo inside the strip that survives both crops, and fills everything around it with colour taken from the photo's own edges. The crop still happens. It just lands on fill instead of on your picture.
 
 The part people miss: the surviving strip is full height. The fill above and below your photo is not discarded — it is the part you look at every time you glance at your phone. Only the left and right fill is thrown away. That is the whole reason the fill is sampled from your own image rather than set to black.
+
+SOLID COLOURS
+
+Or skip the photo. Choose a colour gives one flat colour, edge to edge — pick it by hue, saturation and lightness, or type a hex code. Nothing in it can be cropped, so there is nothing to place.
 
 THE TWO FILLS
 
@@ -58,13 +62,13 @@ Everything happens on your phone. There is no account, no network access, and no
 
 fiat margo asks for two permissions. Pictures, so it can read the photo you choose and write the prepared one back. And Media index, so the picker can list your photos at all — without it the sandbox lets the app see the folder but not ask what is in it.
 
-Your original is never touched. margo only ever writes a new file into Pictures / Ambiences, named after the photo it came from.
+Your original is never touched. margo only ever writes a new file into Pictures / Ambiences, named after the photo or the colour it came from.
 
 ABOUT THE NAME
 
 fiat — Latin, let there be. margo — Latin, margin, edge, border: the blank a page keeps around its own text, so that the words are never cut by the paper.
 
-One of the fiat apps, alongside fiat lux (a light meter for film), fiat vox (a chromatic tuner), fiat mos (a habit tracker) and fiat agenda (a task list).
+Part of the fiat family — small, focused Sailfish OS apps that do one thing plainly. The whole family is at munkstolen.se.
 
 Free software, MIT licensed. Source at github.com/munksh/FiatMargo
 ```
@@ -75,15 +79,15 @@ Free software, MIT licensed. Source at github.com/munksh/FiatMargo
 
 | Field | Value |
 |---|---|
-| Version | 1.0.0 |
+| Version | 1.3 |
 | Category | Graphics / Utilities |
 | Licence | MIT |
 | Source | https://github.com/munksh/FiatMargo |
-| Cover image | `store/cover-1080x540.png` |
-| Screenshots | https://munkstolen.se/SFOS/fiat-margo/fiat-margo1.png (and 2, 3) |
+| Cover image | `store/cover1080x540.png` |
+| Screenshots | https://munkstolen.se/SFOS/fiatmargo1.png (and 2, 3) |
 
-## Release notes — 1.0.0
+## Release notes — 1.3
 
 ```
-First release.
+Solid colours: choose a colour instead of a photo and save it as a flat ambience. Pick by hue, saturation and lightness, or type a hex code.
 ```

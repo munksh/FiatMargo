@@ -58,6 +58,7 @@ DISTFILES += \
     qml/pages/MainPage.qml \
     qml/pages/AboutPage.qml \
     qml/pages/PickerPage.qml \
+    qml/pages/ColourPage.qml \
     qml/cover/CoverPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
@@ -83,6 +84,7 @@ REQUIRED_FILES = \
     qml/FiatMargoTheme.qml \
     qml/pages/MainPage.qml \
     qml/pages/PickerPage.qml \
+    qml/pages/ColourPage.qml \
     qml/pages/AboutPage.qml \
     qml/cover/CoverPage.qml \
     qml/components/MunkstolenMark.qml \

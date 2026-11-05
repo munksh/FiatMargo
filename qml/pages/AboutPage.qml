@@ -118,6 +118,16 @@ Page {
                 text: qsTr("The part people miss: the surviving strip is <b>full height</b>. The fill above and below your photo is not discarded — it is the part you look at every time you glance at your phone. Only the left and right fill is thrown away. That is the whole reason the fill is sampled from your image rather than set to black.")
             }
 
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - Theme.horizontalPageMargin * 2
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: FiatMargoTheme.secondaryText
+                textFormat: Text.StyledText
+                text: qsTr("Or skip the photo. <b>Choose a colour</b> gives one flat colour, edge to edge, and nothing in it can be cropped.")
+            }
+
             // -- What it cannot do --------------------------------------------
 
             SectionLabel {
@@ -210,7 +220,8 @@ Page {
                     qsTr("<b>Zoom</b> — at 0 the whole photo is visible and you are looking at a lot of fill; at 1 it fills the screen and the edges crop. Around 45% is usually the sweet spot. Pinching the preview does the same thing."),
                     qsTr("<b>Drag</b> the preview to move the photo."),
                     qsTr("<b>Centre</b> puts it back in the middle."),
-                    qsTr("<b>Square / On screen</b> switches between what Gallery shows you and what the phone will actually display.")
+                    qsTr("<b>Square / On screen</b> switches between what Gallery shows you and what the phone will actually display."),
+                    qsTr("<b>Choose a colour</b> — hue, saturation and lightness, or a hex code. Change picks another.")
                 ]
 
                 Label {

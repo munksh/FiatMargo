@@ -64,6 +64,11 @@ Page {
                 color: FiatMargoTheme.primaryText
                 onClicked: pageStack.push(Qt.resolvedUrl("PickerPage.qml"))
             }
+            MenuItem {
+                text: "Choose a colour"
+                color: FiatMargoTheme.primaryText
+                onClicked: pageStack.push(Qt.resolvedUrl("ColourPage.qml"))
+            }
         }
 
         Column {
@@ -72,7 +77,7 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHead {
-                subtitle: composer.hasSource
+                subtitle: composer.hasSource && !composer.solid
                           ? "Drag to move the photo, pinch to zoom. The dimmed edges are what Sailfish throws away."
                           : ""
             }
@@ -108,13 +113,24 @@ Page {
                           : "You photograph your kid. Sailfish makes it an ambience. "
                             + "You get the side of his nose.\n\n"
                             + "margo is the step in between. It pads the photo out first, so "
-                            + "the crop lands on fill instead of on your picture."
+                            + "the crop lands on fill instead of on your picture.\n\n"
+                            + "Or choose a colour: one flat colour, edge to edge."
                 }
 
-                Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Choose a photo"
-                    onClicked: pageStack.push(Qt.resolvedUrl("PickerPage.qml"))
+                Column {
+                    width: parent.width
+                    spacing: Theme.paddingMedium
+
+                    Button {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Choose a photo"
+                        onClicked: pageStack.push(Qt.resolvedUrl("PickerPage.qml"))
+                    }
+                    Button {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Choose a colour"
+                        onClicked: pageStack.push(Qt.resolvedUrl("ColourPage.qml"))
+                    }
                 }
             }
 
@@ -167,7 +183,7 @@ Page {
                         // looking at the square.
                         Item {
                             anchors.fill: preview
-                            visible: !page.stripMode
+                            visible: !page.stripMode && !composer.solid
 
                             Rectangle {
                                 anchors.left: parent.left
@@ -209,6 +225,7 @@ Page {
                          */
                         PinchArea {
                             anchors.fill: parent
+                            enabled: !composer.solid
                             property real startZoom: 0
 
                             onPinchStarted: {
@@ -253,7 +270,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - Theme.horizontalPageMargin * 2
                 spacing: Theme.paddingSmall
-                visible: composer.hasSource
+                visible: composer.hasSource && !composer.solid
 
                 FiatPill {
                     label: "Square"
@@ -275,11 +292,35 @@ Page {
                 }
             }
 
+            // ---------------- the colour ----------------
+            Column {
+                x: Theme.horizontalPageMargin
+                width: parent.width - Theme.horizontalPageMargin * 2
+                spacing: Theme.paddingSmall
+                visible: composer.solid
+
+                SectionLabel { text: "COLOUR"; width: parent.width }
+
+                Text {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    color: FiatMargoTheme.secondaryText
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    text: String(composer.solidColour).toUpperCase()
+                          + ", saved at " + composer.outputSize + " square."
+                }
+
+                ActionWord {
+                    text: "Change"
+                    onClicked: pageStack.push(Qt.resolvedUrl("ColourPage.qml"))
+                }
+            }
+
             // ---------------- controls ----------------
             Column {
                 width: parent.width
                 spacing: Theme.paddingLarge
-                visible: composer.hasSource
+                visible: composer.hasSource && !composer.solid
 
                 // ---- fill ----
                 Column {
@@ -439,8 +480,11 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                     color: FiatMargoTheme.accent
                     font.pixelSize: Theme.fontSizeExtraSmall
-                    text: "Saved to Pictures / Ambiences. Open it in Gallery and tap the "
-                          + "ambience button -- nothing important is left in the crop zone now."
+                    text: composer.solid
+                          ? "Saved to Pictures / Ambiences. Open it in Gallery and tap the "
+                            + "ambience button."
+                          : "Saved to Pictures / Ambiences. Open it in Gallery and tap the "
+                            + "ambience button -- nothing important is left in the crop zone now."
                 }
 
                 Text {

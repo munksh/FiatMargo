@@ -3,7 +3,7 @@ X-Nemo-Application-Type=silica-qt5
 Type=Application
 Icon=harbour-fiatmargo
 Name=fiat margo
-Comment=Prepare a photo for an ambience
+Comment=Prepare a photo or a solid colour for an ambience
 Exec=harbour-fiatmargo
 
 [X-Sailjail]

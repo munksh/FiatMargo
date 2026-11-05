@@ -142,6 +142,8 @@ void blur(QImage &img, int radius)
 AmbienceComposer::AmbienceComposer(PreviewProvider *provider, QObject *parent)
     : QObject(parent)
     , m_provider(provider)
+    , m_solid(false)
+    , m_solidColour(QStringLiteral("#404040"))
     , m_screenAspect(0.45)
     , m_fillMode(EdgeSmear)
     , m_zoom(0.0)
@@ -203,10 +205,11 @@ void AmbienceComposer::setSourcePath(const QString &path)
     if (local.startsWith(QLatin1String("file:"))) {
         local = QUrl(local).toLocalFile();
     }
-    if (local == m_sourcePath) {
+    if (local == m_sourcePath && !m_solid) {
         return;
     }
 
+    m_solid = false;
     m_sourcePath = local;
     m_sourceFull = QImage();
     m_source = QImage();
@@ -315,8 +318,31 @@ void AmbienceComposer::clear()
     setSourcePath(QString());
 }
 
+void AmbienceComposer::setSolid(const QColor &colour)
+{
+    if (!colour.isValid()) {
+        return;
+    }
+
+    m_solid = true;
+    m_solidColour = colour;
+    m_sourcePath.clear();
+    m_source = QImage();
+    m_sourceFull = QImage();
+
+    resetPlacement();
+    emit sourceChanged();
+    refresh();
+}
+
 QImage AmbienceComposer::compose(int size) const
 {
+    if (m_solid) {
+        QImage flat(size, size, QImage::Format_RGB32);
+        flat.fill(m_solidColour.rgb());
+        return flat;
+    }
+
     const bool fullRes = size > kFullResThreshold;
     const QImage &src = (fullRes && !m_sourceFull.isNull()) ? m_sourceFull : m_source;
 
@@ -392,6 +418,16 @@ QImage AmbienceComposer::compose(int size) const
 
 void AmbienceComposer::refresh()
 {
+    if (m_solid) {
+        if (m_provider) {
+            m_provider->setImage(compose(kPreviewSettled));
+        }
+        m_tooSmall = false;
+        ++m_revision;
+        emit previewChanged();
+        return;
+    }
+
     if (m_source.isNull()) {
         if (m_provider) {
             m_provider->setImage(QImage());
@@ -434,7 +470,7 @@ void AmbienceComposer::setBusy(bool busy)
 
 bool AmbienceComposer::save()
 {
-    if (m_source.isNull()) {
+    if (!hasSource()) {
         emit saveFailed(tr("No photo chosen"));
         return false;
     }
@@ -463,11 +499,15 @@ bool AmbienceComposer::save()
         return false;
     }
 
-    const QString base = QFileInfo(m_sourcePath).completeBaseName();
+    // A flat field survives JPEG at 100 within a step of the chosen value,
+    // and stays the format Gallery's ambience button is known to take.
+    const QString base = m_solid
+            ? QStringLiteral("solid-") + m_solidColour.name().mid(1)
+            : QFileInfo(m_sourcePath).completeBaseName();
     const QString stamp = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd-hhmmss"));
     const QString target = dir.filePath(QStringLiteral("margo-%1-%2.jpg").arg(base, stamp));
 
-    if (!out.save(target, "JPEG", 95)) {
+    if (!out.save(target, "JPEG", m_solid ? 100 : 95)) {
         setBusy(false);
         emit saveFailed(tr("Could not write %1").arg(target));
         return false;

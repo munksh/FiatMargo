@@ -1,6 +1,6 @@
 Name:       harbour-fiatmargo
-Summary:    Prepare a photo for a Sailfish ambience
-Version:    1.2
+Summary:    Prepare a photo or a solid colour for a Sailfish ambience
+Version:    1.3
 Release:    1
 Group:      Applications/Multimedia
 License:    MIT
@@ -50,8 +50,11 @@ picture you see.
 The fill is taken from the colours already present along the edges of your
 own photo, so it reads as part of the image rather than as a border.
 
+Or skip the photo and choose a colour: one flat colour, edge to edge, from a
+hue, saturation and lightness picker or a hex code.
+
 %if 0%{?_chum}
-Title: fiat margo
+Title: fiat margo - ambiences
 Type: desktop-application
 DeveloperName: Caesar Prometheus Ivarsson
 Categories:
@@ -95,6 +98,11 @@ desktop-file-install --delete-original \
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Thu Nov 05 2026 Caesar Prometheus Ivarsson <caesar@munkstolen.se> - 1.3-1
+- Solid colours: choose a colour instead of a photo and save it as a flat
+  2048 square ambience. Pick by hue, saturation and lightness, or type a hex
+  code.
+
 * Mon Oct 05 2026 Caesar Prometheus Ivarsson <caesar@munkstolen.se> - 1.2-1
 - The About page lists the whole fiat family with full-size icons, and the
   package carries metadata for SailfishOS:Chum: title, icon and screenshots.

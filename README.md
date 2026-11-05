@@ -3,7 +3,8 @@
 *margo, marginis* — the edge, the border, the margin of a page.
 
 A Sailfish OS app that prepares a photo for use as an ambience, so that the
-picture you framed is the picture you end up looking at.
+picture you framed is the picture you end up looking at. It also makes solid
+colour ambiences.
 
 Part of the fiat family: **lux** measures light, **vox** finds pitch, **mos**
 keeps habits, **agenda** keeps promises, **margo** keeps edges.
@@ -43,6 +44,14 @@ the [Harbour allowlist](https://docs.sailfishos.org/Develop/Apps/Harbour/Allowed
 so no Store app may set one. margo writes a prepared image to
 `Pictures/Ambiences` and you finish in Gallery, where the ambience button now
 has nothing left to ruin.
+
+## Solid colours
+
+**Choose a colour** skips the photo altogether: one flat colour, edge to edge,
+saved as a 2048 square JPEG at quality 100. Pick it by hue, saturation and
+lightness, or type a hex code. There is nothing to crop, so zoom, drag, fill
+and Square / On screen are hidden while a colour is chosen. The ambience's
+highlight colour is picked in Gallery as usual.
 
 ---
 
@@ -137,10 +146,10 @@ src/
   previewprovider.{h,cpp}      hands previews to QML without touching disk
 qml/
   qmldir                       singleton registration -- must be in DISTFILES
-  FiatMargoTheme.qml           fiat colours; accent #1F6E7B deep sea
+  FiatMargoTheme.qml           fiat colours; accent #716A00 olive
   harbour-fiatmargo.qml        ApplicationWindow
-  components/                  PageHead, SectionLabel, EmptyNote, FiatPill
-  pages/                       MainPage, AboutPage, PickerPage
+  components/                  PageHead, SectionLabel, EmptyNote, FiatPill, ActionWord, MunkstolenMark
+  pages/                       MainPage, AboutPage, PickerPage, ColourPage
   cover/CoverPage.qml
 icons/{86,108,128,172}/
 tools/

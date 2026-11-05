@@ -1,6 +1,7 @@
 #ifndef AMBIENCECOMPOSER_H
 #define AMBIENCECOMPOSER_H
 
+#include <QColor>
 #include <QObject>
 #include <QImage>
 #include <QString>
@@ -35,6 +36,11 @@ class AmbienceComposer : public QObject
     Q_PROPERTY(bool hasSource READ hasSource NOTIFY sourceChanged)
     Q_PROPERTY(int sourceWidth READ sourceWidth NOTIFY sourceChanged)
     Q_PROPERTY(int sourceHeight READ sourceHeight NOTIFY sourceChanged)
+
+    // No photo at all: one flat colour, edge to edge. Nothing in it can be
+    // cropped, so zoom, offset and fill have nothing to act on.
+    Q_PROPERTY(bool solid READ solid NOTIFY sourceChanged)
+    Q_PROPERTY(QColor solidColour READ solidColour NOTIFY sourceChanged)
 
     Q_PROPERTY(qreal screenAspect READ screenAspect WRITE setScreenAspect NOTIFY settingsChanged)
     Q_PROPERTY(int fillMode READ fillMode WRITE setFillMode NOTIFY settingsChanged)
@@ -73,9 +79,12 @@ public:
 
     QString sourcePath() const { return m_sourcePath; }
     void setSourcePath(const QString &path);
-    bool hasSource() const { return !m_source.isNull(); }
+    bool hasSource() const { return m_solid || !m_source.isNull(); }
     int sourceWidth() const { return m_source.isNull() ? 0 : m_sourceFull.width(); }
     int sourceHeight() const { return m_source.isNull() ? 0 : m_sourceFull.height(); }
+
+    bool solid() const { return m_solid; }
+    QColor solidColour() const { return m_solidColour; }
 
     qreal screenAspect() const { return m_screenAspect; }
     void setScreenAspect(qreal aspect);
@@ -121,6 +130,7 @@ public:
     Q_INVOKABLE void resetPlacement();
     Q_INVOKABLE bool save();
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void setSolid(const QColor &colour);
 
 signals:
     void sourceChanged();
@@ -141,6 +151,9 @@ private:
     QString m_sourcePath;
     QImage m_source;          // EXIF-corrected, downscaled working copy
     QImage m_sourceFull;      // EXIF-corrected, full resolution
+
+    bool m_solid;
+    QColor m_solidColour;
 
     qreal m_screenAspect;
     int m_fillMode;
